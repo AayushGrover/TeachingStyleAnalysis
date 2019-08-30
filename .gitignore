@@ -104,3 +104,4 @@ venv.bak/
 .mypy_cache/
 data/
 *.hdf5
+results_imgs/
