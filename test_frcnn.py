@@ -27,7 +27,7 @@ parser.add_option("--network", dest="network", help="Base network to use. Suppor
 
 (options, args) = parser.parse_args()
 
-# df = pd.read_csv('../test.csv')
+output = []
 
 if not options.test_path:   # if filename is not given
 	parser.error('Error: path to test data must be specified. Pass --path to command line')
@@ -250,11 +250,22 @@ for idx, img_name in enumerate(sorted(os.listdir(img_path))):
 				new_y2 = real_y2
 		cv2.rectangle(img,(new_x1, new_y1), (new_x2, new_y2), (0, 255, 0), 2)
 		cv2.putText(img,"{}".format(round(val, 2)), (new_x1,new_y2), cv2.FONT_HERSHEY_SIMPLEX, 2, 255, 2)
+		# print("x1:{}, y1:{}, x2:{}, y2:{}".format(new_x1, new_y1, new_x2, new_y2))
+		tempout = []
+		tempout.append(img_name)
+		tempout.append(new_x1)
+		tempout.append(new_y1)
+		tempout.append(new_x2)
+		tempout.append(new_y2)
+
+		output.append(tempout)
+		
 		# df.loc[df['image_name']==img_name, ['x1', 'x2', 'y1', 'y2']] = int(new_x1), int(new_x2), int(new_y1), int(new_y2)
-	
+	df = pd.DataFrame(output, columns =['filename', 'xmin', 'ymin', 'xmax', 'ymax'], dtype = int) 
+	df.to_csv("./data/annotations/TestResults.csv",index=False)
 	# cv2.imshow('img', img)
 	# k = cv2.waitKey(0) & 0xFF
 
-	cv2.imwrite('./results_imgs/{}.png'.format(idx),img)
+	# cv2.imwrite('./results_imgs/{}.png'.format(idx),img)
 
 
