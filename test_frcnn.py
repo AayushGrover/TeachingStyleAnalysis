@@ -249,7 +249,7 @@ for idx, img_name in enumerate(sorted(os.listdir(img_path))):
 				new_y1 = real_y1
 				new_y2 = real_y2
 		cv2.rectangle(img,(new_x1, new_y1), (new_x2, new_y2), (0, 255, 0), 2)
-		cv2.putText(img,"{}".format(round(val, 2)), (new_x1,new_y2), cv2.FONT_HERSHEY_SIMPLEX, 2, 255, 2)
+		cv2.putText(img,"{}".format(round(val, 2)), (int((new_x1+new_x2)/2),new_y2), cv2.FONT_HERSHEY_SIMPLEX, 2, 255, 2)
 		# print("x1:{}, y1:{}, x2:{}, y2:{}".format(new_x1, new_y1, new_x2, new_y2))
 		tempout = []
 		tempout.append(img_name)
@@ -266,6 +266,6 @@ for idx, img_name in enumerate(sorted(os.listdir(img_path))):
 	# cv2.imshow('img', img)
 	# k = cv2.waitKey(0) & 0xFF
 
-	# cv2.imwrite('./results_imgs/{}.png'.format(idx),img)
+	cv2.imwrite('./results_imgs/{}.png'.format(idx),img)
 
 
